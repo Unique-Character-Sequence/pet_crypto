@@ -7,7 +7,6 @@ import Header from './features/Header/Header';
 const App = () => { 
   return (
     <div className='appPage'>
-      {/* <DefaultPage /> */}
       <Header />
       <Routes>
         <Route path='/' Component={HomePage} />
