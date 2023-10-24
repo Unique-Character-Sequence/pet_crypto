@@ -26,12 +26,12 @@ const Header = () => {
     <AppBar color="transparent" position='static'>
       <Container>
         <Toolbar>
-          <img onClick={navToHome} style={{cursor: 'pointer'}} className="smallPic" src={biglapik} alt="" />
+          <img onClick={navToHome} style={{ cursor: 'pointer' }} className="smallPic" src={biglapik} alt="" />
           <Typography onClick={navToHome} variant='h6' sx={textStyle}>Big Lapik {currencySymbol}</Typography>
-          <Select onChange={(e) => dispatch(setCurrency(e.target.value as CurrencyCode))} sx={selectStyle}>
+          <Select value={currencyCode} onChange={(e) => dispatch(setCurrency(e.target.value as CurrencyCode))} sx={selectStyle}>
             <MenuItem value={"USD"}>USD</MenuItem>
             <MenuItem value={"EUR"}>EUR</MenuItem>
-            <MenuItem value={"MDL"}>MDL</MenuItem>
+            <MenuItem value={"JPY"}>JPY</MenuItem>
           </Select>
         </Toolbar>
       </Container>

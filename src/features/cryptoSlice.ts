@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // TypeScript declarations
-export type CurrencyCode = "USD" | "EUR" | "MDL";
-export type CurrencySymbol = "$" | "€" | "L";
+export type CurrencyCode = "USD" | "EUR" | "JPY";
+export type CurrencySymbol = "$" | "€" | "¥";
 
 export interface CurrencyMap {
   [currencyCode: string]: CurrencySymbol;
@@ -11,7 +11,7 @@ export interface CurrencyMap {
 export const currencySymbols: CurrencyMap = {
   USD: "$",
   EUR: "€",
-  MDL: "L",
+  JPY: "¥",
 };
 
 export interface initial_I {
