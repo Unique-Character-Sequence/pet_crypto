@@ -1,0 +1,24 @@
+.bannerBg {
+  background-image: url("../../assets/banner.jpg");
+  background-size: cover;
+}
+
+.bannerTransparentBg {
+  background-color: rgba(22, 22, 22, 0.4);
+}
+
+.bannerContent {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
+  justify-content: space-around;
+}
+
+.bannerTagline {
+  display: flex;
+  height: 40%;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
