@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // TypeScript declarations
-type CurrencyCode = "USD" | "EUR" | "MDL";
-type CurrencySymbol = "$" | "€" | "L";
+export type CurrencyCode = "USD" | "EUR" | "MDL";
+export type CurrencySymbol = "$" | "€" | "L";
 
 export interface CurrencyMap {
   [currencyCode: string]: CurrencySymbol;
@@ -15,16 +15,16 @@ export const currencySymbols: CurrencyMap = {
 };
 
 export interface initial_I {
-  currency: CurrencyCode;
-  symbol: CurrencySymbol;
+  currencyCode: CurrencyCode;
+  currencySymbol: CurrencySymbol;
 }
 
 // Redux itself
 const initialCurrency: CurrencyCode = "USD";
 
 const initialState: initial_I = {
-  currency: initialCurrency,
-  symbol: currencySymbols[initialCurrency],
+  currencyCode: initialCurrency,
+  currencySymbol: currencySymbols[initialCurrency],
 };
 
 export const cryptoSlice = createSlice({
@@ -32,8 +32,8 @@ export const cryptoSlice = createSlice({
   initialState,
   reducers: {
     setCurrency: (state, action: PayloadAction<CurrencyCode>) => {
-      state.currency = action.payload;
-      state.symbol = currencySymbols[action.payload];
+      state.currencyCode = action.payload;
+      state.currencySymbol = currencySymbols[action.payload];
     },
   },
 });
