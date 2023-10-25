@@ -1,6 +1,6 @@
-import React from 'react'
-import "./Banner.scss"
+import "./styles/Banner.scss"
 import { Container, Typography } from '@mui/material'
+import Carousel from './Carousel'
 
 const styling = {
   fontWeight: 'bold',
@@ -29,6 +29,7 @@ const Banner = () => {
               Get all the info regarding your favorite cryptocurrencies
             </Typography>
           </div>
+          <Carousel />
         </Container>
       </div>
     </div>
