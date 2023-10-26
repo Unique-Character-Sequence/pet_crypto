@@ -46,7 +46,7 @@ const CoinsTable = () => {
                         <TableBody>
                             {coinList.map((el, i) => (
                                 <TableRow key={el.i}>
-                                    <TableCell><img src={el.name} alt="" />{el.name}</TableCell>
+                                    <TableCell sx={{ display: "flex", alignItems: "center" }}><img style={{ height: "28px", marginRight: "5px" }} src={el.image} alt="" />{el.name}</TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
                                     <TableCell align="right">{numberWithCommas(el.price_change_percentage_24h)}&nbsp;%</TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
