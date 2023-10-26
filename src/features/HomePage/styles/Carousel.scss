@@ -5,7 +5,9 @@
     height: 50%;
     align-items: center;
     img {
-        height: 80px;
+        max-height: 80px;
+        height: 8vw;
+        min-height: 60px;
         user-select: none;
         margin-bottom: 10px;
     }

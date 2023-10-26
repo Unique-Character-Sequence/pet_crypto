@@ -1,10 +1,13 @@
 import Banner from "./Banner"
+import "./styles/HomePage.scss"
 
 const HomePage = () => {
   return (
     <div>
       <Banner />
-      HomePage
+      <div className="mockUp_style">
+        {"{Placeholder for Future Features}"}
+      </div>
     </div>
   )
 }
