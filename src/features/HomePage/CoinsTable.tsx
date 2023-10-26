@@ -48,7 +48,7 @@ const CoinsTable = () => {
                                 <TableRow key={el.i}>
                                     <TableCell sx={{ display: "flex", alignItems: "center" }}><img style={{ height: "28px", marginRight: "5px" }} src={el.image} alt="" />{el.name}</TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
-                                    <TableCell align="right">{numberWithCommas(el.price_change_percentage_24h)}&nbsp;%</TableCell>
+                                    <TableCell align="right">{numberWithCommas(el.price_change_percentage_24h.toFixed(2))}&nbsp;%</TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
                                 </TableRow>
                             ))}
