@@ -1,6 +1,6 @@
 import axios from "axios"
 import "./styles/Carousel.scss"
-import { TrendingCoins } from "../../api/api"
+import { getTrendingCoinsURL } from "../../api/api"
 import { useAppSelector } from "../../app/hooks";
 import { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
@@ -13,8 +13,8 @@ const Carousel = () => {
   const currency = useAppSelector((state) => state.crypto.currencyCode);
   const symbol = useAppSelector((state) => state.crypto.currencySymbol);
   const fetchTrendingCoins = async () => {
-    const { data } = await axios.get(TrendingCoins(currency))
-    setTrending(data)
+    let response = await axios.get(getTrendingCoinsURL(currency))
+    setTrending(response.data)
   }
 
   const handleDragStart = (e: React.FormEvent<HTMLInputElement>) => e.preventDefault()
@@ -29,22 +29,22 @@ const Carousel = () => {
   }, [currency])
 
 
-  let itemsCarousel: any[] = trending.map((_, i, arr) => {
+  let itemsCarousel: any[] = trending.map((el) => {
     let plus: string = ""
-    if (arr[i].price_change_percentage_24h >= 0) plus = "+"
+    if (el.price_change_percentage_24h >= 0) plus = "+"
 
     return (
       <div className="carouselCard">
-        <img src={arr[i].image} onClick={() => navigate(`/coins/${arr[i].name}`)} alt={arr[i].name}
+        <img src={el.image} onClick={() => navigate(`/coins/${el.name}`)} alt={el.name}
           onDragStart={() => handleDragStart} role="presentation" draggable="false" />
-        <span className="toUpper">{arr[i].symbol}
+        <span className="toUpper">{el.symbol}
           &nbsp;
           <span style={{ color: plus ? "#388e3c" : "#d32f2f", fontWeight: "500" }}>
-            {plus}{arr[i].price_change_percentage_24h.toFixed(2)}%
+            {plus}{el.price_change_percentage_24h.toFixed(2)}%
           </span>
         </span>
         <span className="cardPrice">
-          {symbol}&nbsp;{numberWithCommas(arr[i].current_price)}
+          {symbol}&nbsp;{numberWithCommas(el.current_price)}
         </span>
       </div>
     );
