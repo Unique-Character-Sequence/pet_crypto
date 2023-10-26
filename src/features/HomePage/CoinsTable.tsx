@@ -33,16 +33,16 @@ const CoinsTable = () => {
             <TextField onChange={e => { setSearchBar(e.target.value) }}
                 sx={{ marginBottom: "20px" }} fullWidth label="e.g. Bitcoin" />
             <TableContainer component={Paper}>
-                {coinList.length ? (
-                    <Table>
-                        <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
-                            <TableRow>
-                                <TableCell sx={customHeadCell}>Name</TableCell>
-                                <TableCell sx={customHeadCell} align="right">Price</TableCell>
-                                <TableCell sx={customHeadCell} align="right">24h&nbsp;%</TableCell>
-                                <TableCell sx={customHeadCell} align="right">Market Cap</TableCell>
-                            </TableRow>
-                        </TableHead>
+                <Table>
+                    <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
+                        <TableRow>
+                            <TableCell sx={customHeadCell}>Name</TableCell>
+                            <TableCell sx={customHeadCell} align="right">Price</TableCell>
+                            <TableCell sx={customHeadCell} align="right">24h&nbsp;%</TableCell>
+                            <TableCell sx={customHeadCell} align="right">Market Cap</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    {coinList.length ? (
                         <TableBody>
                             {coinList.map((el, i) => (
                                 <TableRow key={el.i}>
@@ -53,10 +53,10 @@ const CoinsTable = () => {
                                 </TableRow>
                             ))}
                         </TableBody>
-                    </Table>
-                ) : (
-                    <LinearProgress />
-                )}
+                    ) : (
+                        <LinearProgress />
+                    )}
+                </Table>
             </TableContainer>
         </Container>
     );

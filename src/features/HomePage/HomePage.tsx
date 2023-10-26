@@ -7,9 +7,9 @@ const HomePage = () => {
     <div>
       <Banner />
       <CoinsTable />
-      <div className="mockUp_style">
+      {/* <div className="mockUp_style">
         {"{Placeholder for Future Features}"}
-      </div>
+      </div> */}
     </div>
   )
 }
