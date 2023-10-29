@@ -3,26 +3,27 @@ import { useAppSelector } from "../../app/hooks"
 import axios from "axios"
 import { Container, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import { getCoinListURL } from "../../api/api"
-import { numberWithCommas } from "../../utilities/utils"
+import { customHeadCell, numberWithCommas } from "../../utilities/utils"
+import toast from "react-hot-toast"
 
 const CoinsTable = () => {
-    const customHeadCell = { color: "black", fontFamily: "Montserrat", fontWeight: "600" }
     const [coinList, setCoinList] = useState<any[]>([])
     const [searchBar, setSearchBar] = useState<string>("")
 
     let currencyCode = useAppSelector(state => state.crypto.currencyCode)
     let currencySymbol = useAppSelector(state => state.crypto.currencySymbol)
     const fetchCoinList = async () => {
-        let response = await axios.get(getCoinListURL(currencyCode))
-        setCoinList(response.data)
+        try {
+            let response = await axios.get(getCoinListURL(currencyCode))
+            setCoinList(response.data)
+        } catch (error) {
+            toast.error('Something went wrong with your request')
+            console.error(error)
+        }
     }
 
     useEffect(() => {
-        try {
-            fetchCoinList()
-        } catch (error) {
-            console.log("Error fetching coin list", error);
-        }
+        fetchCoinList()
     }, [currencyCode])
 
     return (
@@ -42,21 +43,23 @@ const CoinsTable = () => {
                             <TableCell sx={customHeadCell} align="right">Market Cap</TableCell>
                         </TableRow>
                     </TableHead>
-                    {coinList.length ? (
+                    {coinList.length > 0 && (
                         <TableBody>
                             {coinList.map((el, i) => (
-                                <TableRow key={el.i}>
-                                    <TableCell sx={{ display: "flex", alignItems: "center" }}><img style={{ height: "28px", marginRight: "5px" }} src={el.image} alt="" />{el.name}</TableCell>
+                                <TableRow key={el.id}>
+                                    <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                                        <img style={{ height: "28px", marginRight: "5px" }} src={el.image} alt="" />
+                                        <span>{el.name}</span>
+                                    </TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
                                     <TableCell align="right">{numberWithCommas(el.price_change_percentage_24h.toFixed(2))}&nbsp;%</TableCell>
                                     <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
-                    ) : (
-                        <LinearProgress />
                     )}
                 </Table>
+                {!coinList.length && <LinearProgress />}
             </TableContainer>
         </Container>
     );

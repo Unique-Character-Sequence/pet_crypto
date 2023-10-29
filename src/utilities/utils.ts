@@ -10,3 +10,9 @@ export const responsiveCarousel = {
   1024: { items: 5 },
   1366: { items: 6 },
 };
+
+export const customHeadCell = {
+  color: "black",
+  fontFamily: "Montserrat",
+  fontWeight: "600",
+};

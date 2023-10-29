@@ -5,6 +5,7 @@ import CoinPage from './features/CoinPage/CoinPage';
 import Header from './features/Header/Header';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Toaster } from 'react-hot-toast';
 
 const darkTheme = createTheme({
   palette: {
@@ -16,6 +17,7 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <Toaster />
       <div className='appPage'>
         <Header />
         <Routes>
