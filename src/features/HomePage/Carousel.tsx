@@ -39,7 +39,7 @@ const Carousel = () => {
           onDragStart={() => handleDragStart} role="presentation" draggable="false" />
         <span className="toUpper">{el.symbol}
           &nbsp;
-          <span style={{ color: plus ? "#388e3c" : "#d32f2f", fontWeight: "500" }}>
+          <span style={{ color: plus ? "rgb(14, 203, 129)" : "#d32f2f", fontWeight: "500" }}>
             {plus}{el.price_change_percentage_24h.toFixed(2)}%
           </span>
         </span>
@@ -53,8 +53,8 @@ const Carousel = () => {
 
   return (
     <div className="carouselMain">
-      <AliceCarousel infinite={true} autoPlay={true} animationDuration={2000}
-        autoPlayInterval={2000} disableButtonsControls={true} disableDotsControls={true}
+      <AliceCarousel infinite autoPlay animationDuration={2000}
+        autoPlayInterval={2000} disableButtonsControls disableDotsControls
         responsive={responsiveCarousel} mouseTracking items={itemsCarousel} />
     </div>
   )

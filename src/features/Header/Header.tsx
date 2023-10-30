@@ -27,7 +27,8 @@ const Header = () => {
       <Container>
         <Toolbar>
           <img onClick={navToHome} style={{ cursor: 'pointer' }} className="smallPic" src={biglapik} alt="" />
-          <Typography onClick={navToHome} variant='h6' sx={textStyle}>Big Lapik {currencySymbol}</Typography>
+          <Typography onClick={navToHome} variant='h6' sx={textStyle}>Big&nbsp;Lapik&nbsp;{currencySymbol}</Typography>
+          {/* TODO: нужен thunk, что будет менять отображение уже после того как ответ будет 200 */}
           <Select value={currencyCode} onChange={(e) => dispatch(setCurrency(e.target.value as CurrencyCode))} sx={selectStyle}>
             <MenuItem value={"USD"}>USD</MenuItem>
             <MenuItem value={"EUR"}>EUR</MenuItem>

@@ -16,3 +16,13 @@ export const customHeadCell = {
   fontFamily: "Montserrat",
   fontWeight: "600",
 };
+
+export const paginationCount = 10;
+
+export const handleSearch = (searchValue: string, arr: any[]) => {
+  return arr.filter(
+    (el) =>
+      el.symbol.toLowerCase().includes(searchValue) ||
+      el.name.toLowerCase().includes(searchValue)
+  );
+};
