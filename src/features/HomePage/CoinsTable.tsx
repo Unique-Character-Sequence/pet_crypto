@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../app/hooks"
 import axios from "axios"
-import { Container, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
+import { Container, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import { getCoinListURL } from "../../api/api"
-import { customHeadCell, numberWithCommas } from "../../utilities/utils"
+import { customHeadCell, numberWithCommas, paginationCount } from "../../utilities/utils"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import "./styles/CoinsTable.scss"
 
 const CoinsTable = () => {
     const [coinList, setCoinList] = useState<any[]>([])
     const [searchValue, setSearchValue] = useState<string>("")
+    const [page, setPage] = useState<number>(1)
     const navigate = useNavigate()
+    const handlePagination = () => handleSearch().slice((page - 1) * paginationCount, page * paginationCount)
+    const handleSearch = () => coinList.filter((el) =>
+        el.symbol.toLowerCase().includes(searchValue) || el.name.toLowerCase().includes(searchValue)
+    )
 
     let currencyCode = useAppSelector(state => state.crypto.currencyCode)
     let currencySymbol = useAppSelector(state => state.crypto.currencySymbol)
@@ -38,8 +44,11 @@ const CoinsTable = () => {
             <Typography variant="h4" sx={{ margin: "18px", fontFamily: "Montserrat" }}>
                 Cryptocurrency Prices by Market Cap
             </Typography>
-            <TextField onChange={e => { setSearchValue(e.target.value) }}
+            <TextField onChange={e => { setSearchValue(e.target.value.toLowerCase()) }}
                 sx={{ marginBottom: "20px" }} fullWidth label="e.g. Bitcoin" />
+            <div className="paginationCoins">
+                <Pagination count={Math.ceil(handleSearch().length / 10)} onChange={(_, p) => setPage(p)} />
+            </div>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
@@ -52,34 +61,41 @@ const CoinsTable = () => {
                     </TableHead>
                     {coinList.length > 0 && (
                         <TableBody>
-                            {coinList.filter((el) =>
-                                el.symbol.toLowerCase().includes(searchValue) || el.name.toLowerCase().includes(searchValue)
-                            ).map((el, i) => (
-                                <TableRow sx={{
-                                    "&:hover": {
-                                        backgroundColor: "#333"
-                                    },
-                                    transition: "0.17s",
-                                    cursor: "pointer"
-                                }} onClick={() => navigate(`/{el.symbol}`)} key={i}>
-                                    <TableCell sx={{ display: "flex", alignItems: "center" }}>
-                                        <img style={{ height: "36px", marginRight: "5px" }} src={el.image} alt="" />
-                                        <div style={{ display: "flex", flexDirection: "column" }}>
-                                            <span>{el.name}</span>
-                                            <span>{el.symbol.toUpperCase()}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
-                                    <TableCell align="right">{numberWithCommas(el.price_change_percentage_24h.toFixed(2))}&nbsp;%</TableCell>
-                                    <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
-                                </TableRow>
-                            ))}
+                            {handlePagination().map((el, i) => {
+                                let price_change = el.price_change_percentage_24h.toFixed(2)
+                                let isProfit = price_change >= 0
+                                return (
+                                    <TableRow sx={{
+                                        "&:hover": {
+                                            backgroundColor: "rgb(24, 24, 24)"
+                                        },
+                                        transition: "0.17s",
+                                        cursor: "pointer"
+                                    }} onClick={() => navigate(`/{el.symbol}`)} key={i}>
+                                        <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                                            <img style={{ height: "36px", marginRight: "5px" }} src={el.image} alt="" />
+                                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                                <span>{el.name}</span>
+                                                <span style={{ color: "#eee", fontWeight: "500" }}>{el.symbol.toUpperCase()}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
+                                        <TableCell sx={{ color: (isProfit ? "rgb(14, 203, 129)" : "#d32f2f"), fontWeight: "500" }} align="right">
+                                            {isProfit && "+"}{numberWithCommas(price_change)}&nbsp;%
+                                        </TableCell>
+                                        <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
+                                    </TableRow>
+                                )
+                            })}
                         </TableBody>
                     )}
                 </Table>
                 {!coinList.length && <LinearProgress />}
             </TableContainer>
-        </Container>
+            <div className="paginationCoins" id="bottom">
+                <Pagination count={Math.ceil(handleSearch().length / 10)} onChange={(_, p) => setPage(p)} />
+            </div>
+        </Container >
     );
 }
 
