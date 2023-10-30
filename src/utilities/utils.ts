@@ -17,8 +17,6 @@ export const customHeadCell = {
   fontWeight: "600",
 };
 
-export const paginationCount = 10;
-
 export const handleSearch = (searchValue: string, arr: any[]) => {
   return arr.filter(
     (el) =>

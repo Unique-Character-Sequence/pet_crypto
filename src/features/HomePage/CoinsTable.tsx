@@ -3,7 +3,7 @@ import { useAppSelector } from "../../app/hooks"
 import axios from "axios"
 import { Container, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import { getCoinListURL } from "../../api/api"
-import { customHeadCell, numberWithCommas, paginationCount } from "../../utilities/utils"
+import { customHeadCell, numberWithCommas } from "../../utilities/utils"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import "./styles/CoinsTable.scss"
@@ -13,11 +13,12 @@ const CoinsTable = () => {
     const [searchValue, setSearchValue] = useState<string>("")
     const [page, setPage] = useState<number>(1)
     const navigate = useNavigate()
-    const handlePagination = () => handleSearch().slice((page - 1) * paginationCount, page * paginationCount)
+    const itemsPerPage = 15;
+    const handlePagination = () => handleSearch().slice((page - 1) * itemsPerPage, page * itemsPerPage)
     const handleSearch = () => coinList.filter((el) =>
         el.symbol.toLowerCase().includes(searchValue) || el.name.toLowerCase().includes(searchValue)
     )
-
+    const pageCount = Math.ceil(handleSearch().length / itemsPerPage)
     let currencyCode = useAppSelector(state => state.crypto.currencyCode)
     let currencySymbol = useAppSelector(state => state.crypto.currencySymbol)
     const fetchCoinList = async () => {
@@ -47,7 +48,7 @@ const CoinsTable = () => {
             <TextField onChange={e => { setSearchValue(e.target.value.toLowerCase()) }}
                 sx={{ marginBottom: "20px" }} fullWidth label="e.g. Bitcoin" />
             <div className="paginationCoins">
-                <Pagination count={Math.ceil(handleSearch().length / 10)} onChange={(_, p) => setPage(p)} />
+                <Pagination count={pageCount} onChange={(_, p) => setPage(p)} />
             </div>
             <TableContainer component={Paper}>
                 <Table>
@@ -93,7 +94,12 @@ const CoinsTable = () => {
                 {!coinList.length && <LinearProgress />}
             </TableContainer>
             <div className="paginationCoins" id="bottom">
-                <Pagination count={Math.ceil(handleSearch().length / 10)} onChange={(_, p) => setPage(p)} />
+                <Pagination count={pageCount} onChange={
+                    (_, p) => {
+                        setPage(p)
+                        window.scroll(0, 470)
+                    }
+                } />
             </div>
         </Container >
     );
