@@ -1,7 +1,7 @@
 const BASE_API_URL = "https://api.coingecko.com/api/v3";
 
 export const getCoinListURL = (currency: string, locale: string = "en") =>
-  `${BASE_API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=${locale}`;
+  `${BASE_API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=${locale}`;
 
 export const getCoinDataURL = (id: string) => `${BASE_API_URL}/coins/${id}`;
 

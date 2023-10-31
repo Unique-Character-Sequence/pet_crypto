@@ -54,6 +54,7 @@ const CoinsTable = () => {
                 <Table>
                     <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
                         <TableRow>
+                            <TableCell key="thtc0" sx={{ ...customHeadCell, padding: "0 0 0 16px", textAlign: "left" }}>#</TableCell>
                             <TableCell key="thtc1" sx={customHeadCell}>Name</TableCell>
                             <TableCell key="thtc2" sx={customHeadCell} align="right">Price</TableCell>
                             <TableCell key="thtc3" sx={customHeadCell} align="right">24h&nbsp;%</TableCell>
@@ -73,8 +74,9 @@ const CoinsTable = () => {
                                         transition: "0.17s",
                                         cursor: "pointer"
                                     }} onClick={() => navigate(`/coins/${el.id}`)} key={el.id}>
+                                        <TableCell sx={{ padding: "0 0 0 16px", textAlign: "left" }}>{el.market_cap_rank}</TableCell>
                                         <TableCell sx={{ display: "flex", alignItems: "center" }}>
-                                            <img style={{ height: "36px", marginRight: "5px" }} src={el.image} alt="" />
+                                            <img style={{ height: "36px", marginRight: "1em" }} src={el.image} alt="" />
                                             <div style={{ display: "flex", flexDirection: "column" }}>
                                                 <span>{el.name}</span>
                                                 <span style={{ color: "#eee", fontWeight: "500" }}>{el.symbol.toUpperCase()}</span>
