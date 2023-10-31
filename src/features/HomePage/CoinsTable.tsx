@@ -16,7 +16,7 @@ const CoinsTable = () => {
     const itemsPerPage = 15;
     const handlePagination = () => handleSearch().slice((page - 1) * itemsPerPage, page * itemsPerPage)
     const handleSearch = () => coinList.filter((el) =>
-        el.symbol.toLowerCase().includes(toQwerty(searchValue)) || el.name.toLowerCase().includes(toQwerty(searchValue))
+        el?.symbol.toLowerCase().includes(toQwerty(searchValue)) || el?.name.toLowerCase().includes(toQwerty(searchValue))
     )
     const pageCount = Math.ceil(handleSearch().length / itemsPerPage)
     let currencyCode = useAppSelector(state => state.crypto.currencyCode)
