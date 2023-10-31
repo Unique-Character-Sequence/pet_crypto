@@ -1,6 +1,11 @@
-.coinNameImgComp {
+.coinWithPrice {
     display: flex;
     align-items: center;
+    height: 80px;
+}
+.coinNameImgComp {
+    display: inherit;
+    align-items: inherit;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     font-size: 28px;
