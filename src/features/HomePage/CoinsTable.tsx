@@ -3,7 +3,7 @@ import { useAppSelector } from "../../app/hooks"
 import axios from "axios"
 import { Container, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
 import { getCoinListURL } from "../../api/api"
-import { customHeadCell, numberWithCommas } from "../../utilities/utils"
+import { customHeadCell, numberWithCommas, toQwerty } from "../../utilities/utils"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import "./styles/CoinsTable.scss"
@@ -16,7 +16,7 @@ const CoinsTable = () => {
     const itemsPerPage = 15;
     const handlePagination = () => handleSearch().slice((page - 1) * itemsPerPage, page * itemsPerPage)
     const handleSearch = () => coinList.filter((el) =>
-        el.symbol.toLowerCase().includes(searchValue) || el.name.toLowerCase().includes(searchValue)
+        el.symbol.toLowerCase().includes(toQwerty(searchValue)) || el.name.toLowerCase().includes(toQwerty(searchValue))
     )
     const pageCount = Math.ceil(handleSearch().length / itemsPerPage)
     let currencyCode = useAppSelector(state => state.crypto.currencyCode)
