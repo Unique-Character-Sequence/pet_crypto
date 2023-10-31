@@ -72,7 +72,7 @@ const CoinsTable = () => {
                                         },
                                         transition: "0.17s",
                                         cursor: "pointer"
-                                    }} onClick={() => navigate(`/{el.symbol}`)} key={i}>
+                                    }} onClick={() => navigate(`/coins/${el.symbol}`)} key={i}>
                                         <TableCell sx={{ display: "flex", alignItems: "center" }}>
                                             <img style={{ height: "36px", marginRight: "5px" }} src={el.image} alt="" />
                                             <div style={{ display: "flex", flexDirection: "column" }}>

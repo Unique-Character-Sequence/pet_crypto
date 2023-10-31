@@ -35,7 +35,7 @@ const Carousel = () => {
 
     return (
       <div className="carouselCard">
-        <img src={el.image} onClick={() => navigate(`/coins/${el.name}`)} alt={el.name}
+        <img src={el.image} onClick={() => navigate(`/coins/${el.symbol}`)} alt={el.name}
           onDragStart={() => handleDragStart} role="presentation" draggable="false" />
         <span className="toUpper">{el.symbol}
           &nbsp;
