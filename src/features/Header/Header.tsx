@@ -12,7 +12,7 @@ let textStyle = {
   cursor: 'pointer'
 }
 
-let selectStyle = { width: 85, height: 40, marginRight: 15 }
+let selectStyle = { width: 85, height: 40 }
 
 
 const Header = () => {
