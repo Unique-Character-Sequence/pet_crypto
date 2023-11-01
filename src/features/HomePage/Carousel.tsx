@@ -26,12 +26,12 @@ const Carousel = () => {
     } catch (error) {
       console.log("Error fetching data:", error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency])
 
 
   let itemsCarousel: any[] = trending.map((el) => {
-    let plus: string = ""
-    if (el.price_change_percentage_24h >= 0) plus = "+"
+    let plus = el.price_change_percentage_24h > 0 && "+"
 
     return (
       <div className="carouselCard">
@@ -39,7 +39,7 @@ const Carousel = () => {
           onDragStart={() => handleDragStart} role="presentation" draggable="false" />
         <span className="toUpper">{el.symbol}
           &nbsp;
-          <span style={{ color: plus ? "rgb(14, 203, 129)" : "#d32f2f", fontWeight: "500" }}>
+          <span className="cardSymbolPerc" style={{ color: plus ? "rgb(14, 203, 129)" : "#d32f2f", fontWeight: "500" }}>
             {plus}{el.price_change_percentage_24h.toFixed(2)}%
           </span>
         </span>

@@ -1,3 +1,20 @@
+.bigLapikText {
+  font-size: 58px;
+  text-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-family: Montserrat;
+  @media screen and (max-width: 768px) {
+    font-size: 7.5521vw;
+    text-shadow: 0.7813vw 0.7813vw 0.7813vw rgba(0, 0, 0, 0.5);
+  }
+}
+
+.smallTextHide {
+  @media screen and (max-width: 460px) {
+    display: none;
+  }
+}
+
 .bannerBg {
   background-image: url("../../../assets/banner.jpg");
   background-size: cover;
@@ -8,11 +25,14 @@
 }
 
 .bannerContent {
-  height: 400px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   padding-top: 25px;
   justify-content: space-around;
+  @media screen and (max-width: 768px) {
+    height: 49.4792vw;
+  }
 }
 
 .bannerTagline {

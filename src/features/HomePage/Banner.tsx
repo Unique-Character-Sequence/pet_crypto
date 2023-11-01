@@ -2,18 +2,11 @@ import "./styles/Banner.scss"
 import { Container, Typography } from '@mui/material'
 import Carousel from './Carousel'
 
-const styling = {
-  fontWeight: 'bold',
-  fontFamily: 'Montserrat',
-  textShadow: '6px 6px 6px rgba(0, 0, 0, 0.5)'
-  // marginTop: 15
-  // marginBottom: 15
-}
-
 const subtitleStyle = {
   color: "darkgrey",
   fontFamily: "Montserrat",
-  textShadow: '2px 2px 1px rgba(0, 0, 0, 1)'
+  textShadow: '2px 2px 1px rgba(0, 0, 0, 1)',
+  margin: "0 20px 0 20px "
 }
 
 const Banner = () => {
@@ -22,12 +15,14 @@ const Banner = () => {
       <div className="bannerTransparentBg">
         <Container className="bannerContent">
           <div className="bannerTagline">
-            <Typography variant="h2" sx={styling}>
+            <div className="bigLapikText">
               Big Lapik Crypto
-            </Typography>
-            <Typography variant="subtitle2" sx={subtitleStyle}>
-              Get all the info regarding your favorite cryptocurrencies
-            </Typography>
+            </div>
+            <div className="smallTextHide">
+              <Typography variant="subtitle2" sx={subtitleStyle}>
+                Get all the info regarding your favorite cryptocurrencies
+              </Typography>
+            </div>
           </div>
           <Carousel />
         </Container>

@@ -42,9 +42,9 @@ const CoinsTable = () => {
 
     return (
         <Container sx={{ textAlign: "center" }}>
-            <Typography variant="h4" sx={{ margin: "18px", fontFamily: "Montserrat" }}>
+            <div className="cryptoByCapText">
                 Cryptocurrency Prices by Market Cap
-            </Typography>
+            </div>
             <TextField onChange={e => { setSearchValue(e.target.value.toLowerCase()) }}
                 sx={{ marginBottom: "20px" }} fullWidth label="e.g. Bitcoin" />
             <div className="paginationCoins">
