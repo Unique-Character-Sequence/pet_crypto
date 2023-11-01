@@ -3,10 +3,10 @@ import { getCoinDataURL } from "../../api/api"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import toast from "react-hot-toast"
-import { Box, Paper, Skeleton, Typography } from "@mui/material"
+import { Skeleton, Typography } from "@mui/material"
 import "./CoinPage.scss"
 import { useAppSelector } from "../../app/hooks"
-import { numberWithCommas } from "../../utilities/utils"
+import { numberWithCommas } from '../../utilities/utils';
 import parse from 'html-react-parser';
 
 const CoinPage = () => {
@@ -28,29 +28,48 @@ const CoinPage = () => {
   }
   let currencyCode = useAppSelector((state) => state.crypto.currencyCode)
   let currencySymbol = useAppSelector((state) => state.crypto.currencySymbol)
-  let data_currentPrice = coinData?.market_data?.current_price[currencyCode.toLowerCase()]
-  let data_description = coinData?.description?.en.split('. ').slice(0, 2).join('. ')
+  let currencyCode_lc = currencyCode.toLowerCase()
+  let data_currentPrice = coinData.market_data?.current_price[currencyCode_lc]
+  let data_description = coinData.description?.en.split('. ').slice(0, 2).join('. ')
+  let data_priceChange = coinData.market_data?.price_change_percentage_24h.toFixed(2)
+  let data_marketCap = coinData.market_data?.market_cap[currencyCode_lc]
+  let data_ath = coinData.market_data?.ath[currencyCode_lc]
+  let data_atl = coinData.market_data?.atl[currencyCode_lc]
+  let plus = data_priceChange > 0 && "+"
 
   useEffect(() => {
     fetchCoinData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(coinData?.market_data?.current_price)
-  console.log(currencyCode)
 
   return (
-    <div>
+    <div className="coinPageMain">
       <div className="coinWithPrice">
         <div className="coinNameImgComp">
-          {coinData?.image?.small ? <img src={coinData?.image?.small} alt="" /> : <Skeleton sx={{ marginRight: "10px" }} variant="rounded" width={50} height={50} />}
-          {coinData?.name ? <span>{coinData?.name}</span> : <Skeleton variant="rounded" width={280} height={28} />}
+          {coinData.image?.small ? <img src={coinData.image?.small} alt="" /> : <Skeleton sx={{ marginRight: "10px" }} variant="rounded" width={50} height={50} />}
+          {coinData.name ? <span>{coinData.name}</span> : <Skeleton variant="rounded" width={280} height={28} />}
         </div>
-        {data_currentPrice &&
-          <Paper sx={{ position: "relative", top: "4px", marginLeft: "10px", width: "fit-content", padding: "8px" }}>
-            <span className="coinPriceFont">{currencySymbol}&nbsp;{numberWithCommas(data_currentPrice)}</span>
-          </Paper>}
+        <div>
+          <span className="coinPriceFont">{currencySymbol}&nbsp;{data_currentPrice !== undefined && numberWithCommas(data_currentPrice)}</span>
+          <span className="coinPagePercent" id={plus ? "greenPercent" : "redPercent"}>
+            {plus}&nbsp;{data_priceChange !== undefined && numberWithCommas(data_priceChange)}%&nbsp;(1d)
+          </span>
+        </div>
       </div>
-      <Typography sx={{ fontFamily: "Montserrat", padding: "0px 25px 15px 25px", textAlign: "justify" }} variant="subtitle1">
-        {data_description ? `${parse(data_description)}.` : <><Skeleton /><Skeleton /><Skeleton /><Skeleton /></>}
+      <div className="coinPageChartAndInfo">
+        <div className="coinPageChart">
+          {/* Часть с графиком */}
+        </div>
+        <div className="coinPageInfo">
+          {/* Часть с информацией */}
+          <div>Rank:<br />#{coinData.market_cap_rank ?? null}</div>
+          <div>Market cap:<br />{currencySymbol}&nbsp;{data_marketCap !== undefined && numberWithCommas(data_marketCap)} </div>
+          <div>ATH:<br />{currencySymbol}&nbsp;{data_ath !== undefined && numberWithCommas(data_ath)}</div>
+          <div>ATL:<br />{currencySymbol}&nbsp;{data_atl !== undefined && numberWithCommas(data_atl)}</div>
+        </div>
+      </div>
+      <Typography sx={{ fontFamily: "Montserrat", textAlign: "justify" }} variant="subtitle2">
+        {data_description !== undefined ? parse(data_description) : <><Skeleton /><Skeleton /><Skeleton /><Skeleton /></>}
       </Typography>
     </div>
   )
