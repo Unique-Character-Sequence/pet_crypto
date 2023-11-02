@@ -64,8 +64,6 @@
 .coinPageChart {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 400px;
     width: 100%;
     @media screen and (min-width: 1000px) {
         flex: 1;
@@ -74,9 +72,16 @@
 
 .coinDescription {
     font-family: "Montserrat";
+    font-size: 14px;
     text-align: justify;
     @media screen and (min-width: 1000px) {
         margin-top: 2vw;
+    }
+    @media screen and (max-width: 768px) {
+        font-size: 1.8vw;
+    }
+    @media screen and (max-width: 560px) {
+        font-size: 12px;
     }
 }
 

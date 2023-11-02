@@ -2,13 +2,21 @@
     position: relative;
     width: 78vw;
     height: 400px;
-    margin-bottom: 50px;
+    margin-top: 14px;
+    margin-bottom: 30px;
     @media screen and (min-width: 1200px) {
         width: 78vw;
     }
     @media screen and (max-width: 999px) {
         width: 95vw;
         // height: 468px;
+    }
+    @media screen and (max-width: 768px) {
+        width: 95vw;
+        height: 52vw;
+    }
+    @media screen and (max-width: 320px) {
+        margin-bottom: 50px;
     }
 }
 

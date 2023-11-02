@@ -46,7 +46,7 @@ const CoinChart = (props: props_I) => {
                 <CustomButton value={365}>1y</CustomButton>
             </div>
             {props.chartData?.length && (
-                <Line options={options} data={{
+                <Line style={{ marginTop: "10px" }} options={options} data={{
                     labels: props.chartData.map((coinData: any) => {
                         let date = new Date(coinData[0]);
                         let time = `${date.getHours()}:${date.getMinutes()}`
