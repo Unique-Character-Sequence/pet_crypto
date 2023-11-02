@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <AppBar color="transparent" position='static'>
-      <Container>
+      <Container maxWidth="xl">
         <Toolbar>
           <img onClick={navToHome} style={{ cursor: 'pointer' }} className="smallPic" src={biglapik} alt="" />
           <Typography onClick={navToHome} variant='h6' sx={textStyle}>Big&nbsp;Lapik&nbsp;{currencySymbol}</Typography>

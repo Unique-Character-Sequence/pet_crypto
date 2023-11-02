@@ -88,10 +88,10 @@ const CoinPage = () => {
         </div>
         <div className="coinPageInfo">
           {/* Часть с информацией */}
-          <div>Rank:<br />#{coinData.market_cap_rank ?? null}</div>
-          <div>Market cap:<br />{currencySymbol}&nbsp;{data_marketCap !== undefined && numberWithCommas(data_marketCap)} </div>
-          <div>ATH:<br />{currencySymbol}&nbsp;{data_ath !== undefined && numberWithCommas(data_ath)}</div>
-          <div>ATL:<br />{currencySymbol}&nbsp;{data_atl !== undefined && numberWithCommas(data_atl)}</div>
+          <div>Rank:<br />{coinData.market_cap_rank ? "#" + coinData.market_cap_rank : <Skeleton width={40} height={26} />}</div>
+          <div>Market cap:<br />{data_marketCap !== undefined ? currencySymbol + " " + numberWithCommas(data_marketCap) : <Skeleton width={130} height={26} />} </div>
+          <div>ATH:<br />{data_ath !== undefined ? currencySymbol + " " + numberWithCommas(data_ath) : <Skeleton width={130} height={26} />}</div>
+          <div>ATL:<br />{data_atl !== undefined ? currencySymbol + " " + numberWithCommas(data_atl) : <Skeleton width={130} height={26} />}</div>
         </div>
       </div>
       <div className="coinDescription">
