@@ -38,7 +38,7 @@ const CoinsTable = () => {
 
     useEffect(() => {
         fetchCoinList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currencyCode])
 
     return (
@@ -65,8 +65,9 @@ const CoinsTable = () => {
                     {coinList.length > 0 && (
                         <TableBody>
                             {handlePagination().map((el, i) => {
-                                let price_change = el.price_change_percentage_24h.toFixed(2)
-                                let isProfit = price_change >= 0
+                                let price_change = 0;
+                                if (el.price_change_percentage_24h !== null) price_change = el.price_change_percentage_24h.toFixed(2)
+                                let isProfit = price_change > 0
                                 return (
                                     <TableRow sx={{
                                         "&:hover": {
@@ -84,7 +85,7 @@ const CoinsTable = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
-                                        <TableCell sx={{ color: (isProfit ? "rgb(14, 203, 129)" : "#d32f2f"), fontWeight: "500" }} align="right">
+                                        <TableCell sx={{ color: (price_change >= 0 ? "rgb(14, 203, 129)" : "#d32f2f"), fontWeight: "500" }} align="right">
                                             {isProfit && "+"}{numberWithCommas(price_change)}&nbsp;%
                                         </TableCell>
                                         <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
