@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useAppSelector } from "../../app/hooks"
 import axios from "axios"
-import { Container, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material"
+import { Container, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material"
 import { getCoinListURL } from "../../api/api"
 import { customHeadCell, numberWithCommas, toQwerty } from "../../utilities/utils"
 import toast from "react-hot-toast"
@@ -38,6 +38,7 @@ const CoinsTable = () => {
 
     useEffect(() => {
         fetchCoinList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currencyCode])
 
     return (

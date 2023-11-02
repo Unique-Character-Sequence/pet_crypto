@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { getCoinDataURL } from "../../api/api"
+import { getCoinChartURL, getCoinDataURL } from "../../api/api"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import toast from "react-hot-toast"
@@ -8,6 +8,7 @@ import "./CoinPage.scss"
 import { useAppSelector } from "../../app/hooks"
 import { numberWithCommas } from '../../utilities/utils';
 import parse from 'html-react-parser';
+import CoinChart from "./CoinChart"
 
 const CoinPage = () => {
   let { id = "" } = useParams()
@@ -26,11 +27,26 @@ const CoinPage = () => {
       console.error(error)
     }
   }
+  const [chartData, setChartData] = useState<any>([])
+  const [days, setDays] = useState<number>(365)
+
+  const fetchCoinChartData = async () => {
+    if (coinData.id && currencyCode) {
+      try {
+        const response = await axios.get(getCoinChartURL(coinData.id, currencyCode.toLowerCase(), days));
+        setChartData(response.data.prices);
+        console.log("exit 0: ", response.data.prices);
+      } catch (error) {
+        console.error("exit 1: ", error);
+      }
+    }
+  };
+
   let currencyCode = useAppSelector((state) => state.crypto.currencyCode)
   let currencySymbol = useAppSelector((state) => state.crypto.currencySymbol)
   let currencyCode_lc = currencyCode.toLowerCase()
   let data_currentPrice = coinData.market_data?.current_price[currencyCode_lc]
-  let data_description = coinData.description?.en.split('. ').slice(0, 2).join('. ')
+  let data_description = coinData.description?.en.split('. ').slice(0, 4).join('. ')
   let data_priceChange = coinData.market_data?.price_change_percentage_24h.toFixed(2)
   let data_marketCap = coinData.market_data?.market_cap[currencyCode_lc]
   let data_ath = coinData.market_data?.ath[currencyCode_lc]
@@ -39,8 +55,14 @@ const CoinPage = () => {
 
   useEffect(() => {
     fetchCoinData()
+    fetchCoinChartData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    fetchCoinChartData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currencyCode, coinData.id, days])
 
   return (
     <div className="coinPageMain">
@@ -59,6 +81,10 @@ const CoinPage = () => {
       <div className="coinPageChartAndInfo">
         <div className="coinPageChart">
           {/* Часть с графиком */}
+          {chartData?.length ?
+            <CoinChart setDays={setDays} selected={days} chartData={chartData} id={coinData.id} currencyCode={currencyCode} days={days} />
+            :
+            <Skeleton variant="rectangular" width={744} height={400} />}
         </div>
         <div className="coinPageInfo">
           {/* Часть с информацией */}
@@ -68,9 +94,12 @@ const CoinPage = () => {
           <div>ATL:<br />{currencySymbol}&nbsp;{data_atl !== undefined && numberWithCommas(data_atl)}</div>
         </div>
       </div>
-      <Typography sx={{ fontFamily: "Montserrat", textAlign: "justify" }} variant="subtitle2">
-        {data_description !== undefined ? parse(data_description) : <><Skeleton /><Skeleton /><Skeleton /><Skeleton /></>}
-      </Typography>
+      <div className="coinDescription">
+        {data_description !== undefined
+          ? "Info: " + parse(data_description) + "."
+          : Array(6).fill(null).map((_, index) => <Skeleton key={index} />)
+        }
+      </div>
     </div>
   )
 }
