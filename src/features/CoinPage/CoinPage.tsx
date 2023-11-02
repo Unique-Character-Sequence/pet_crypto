@@ -95,11 +95,17 @@ const CoinPage = () => {
         </div>
       </div>
       <div className="coinDescription">
-        {data_description !== undefined
-          ? "Info: " + parse(data_description) + "."
-          : Array(6).fill(null).map((_, index) => <Skeleton key={index} />)
-        }
+        {(() => {
+          if (data_description) {
+            return "Info: " + parse(data_description) + ".";
+          }
+          if (data_description === "") {
+            return "";
+          }
+          return Array(6).fill(null).map((_, index) => <Skeleton key={index} />);
+        })()}
       </div>
+
     </div>
   )
 }
