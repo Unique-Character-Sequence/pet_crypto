@@ -50,27 +50,6 @@ Big Lapik Crypto is a visually appealing and feature-rich cryptocurrency web app
 
 - Additional tools and libraries for enhanced performance and functionality.
 
-
-## Getting Started
-
-To run the app locally, follow these simple steps:
-
-1. **Fork the Project**: Fork this repository to your GitHub account.
-2. **Clone the Repository**: Open your terminal and run `git clone https://github.com/YourUsername/java-academy-portfolio.git`.
-3. **Install Dependencies**: Navigate to the project directory and run `npm install` to install all the necessary dependencies.
-4. **Start the App**: Run `npm start` to start the development server.
-
-## Contribution
-
-We welcome contributions from the community to make Big Lapik Crypto even better! Here's how you can get involved:
-
-1. Fork the project.
-2. Create a new branch for your feature or bug fix.
-3. Commit your changes and push them to your fork.
-4. Submit a pull request to our repository.
-
 ## Author
 
 * **Pilici Rustam** - [GitHub Profile](https://github.com/Unique-Character-Sequence)
-
-We appreciate your interest in our project and look forward to your contributions. Happy coding!
