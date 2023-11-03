@@ -48,63 +48,65 @@ const CoinsTable = () => {
             </div>
             <TextField onChange={e => { setSearchValue(e.target.value.toLowerCase()) }}
                 sx={{ marginBottom: "20px" }} fullWidth label="e.g. Bitcoin" />
-            <div className="paginationCoins">
-                <Pagination count={pageCount} onChange={(_, p) => setPage(p)} />
-            </div>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
-                        <TableRow>
-                            <TableCell key="thtc0" sx={{ ...customHeadCell, padding: "0 0 0 16px", textAlign: "left" }}>#</TableCell>
-                            <TableCell key="thtc1" sx={customHeadCell}>Name</TableCell>
-                            <TableCell key="thtc2" sx={customHeadCell} align="right">Price</TableCell>
-                            <TableCell key="thtc3" sx={customHeadCell} align="right">24h&nbsp;%</TableCell>
-                            <TableCell key="thtc4" sx={customHeadCell} align="right">Market Cap</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    {coinList.length > 0 && (
-                        <TableBody>
-                            {handlePagination().map((el, i) => {
-                                let price_change = 0;
-                                if (el.price_change_percentage_24h !== null) price_change = el.price_change_percentage_24h.toFixed(2)
-                                let isProfit = price_change > 0
-                                return (
-                                    <TableRow sx={{
-                                        "&:hover": {
-                                            backgroundColor: "rgb(24, 24, 24)"
-                                        },
-                                        transition: "0.17s",
-                                        cursor: "pointer"
-                                    }} onClick={() => navigate(`/coins/${el.id}`)} key={el.id}>
-                                        <TableCell sx={{ padding: "0 0 0 16px", textAlign: "left" }}>{el.market_cap_rank}</TableCell>
-                                        <TableCell sx={{ display: "flex", alignItems: "center" }}>
-                                            <img style={{ height: "36px", marginRight: "1em" }} src={el.image} alt="" />
-                                            <div style={{ display: "flex", flexDirection: "column" }}>
-                                                <span>{el.name}</span>
-                                                <span style={{ color: "#eee", fontWeight: "500" }}>{el.symbol.toUpperCase()}</span>
-                                            </div>
-                                        </TableCell>
-                                        <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
-                                        <TableCell sx={{ color: (price_change >= 0 ? "rgb(14, 203, 129)" : "#d32f2f"), fontWeight: "500" }} align="right">
-                                            {isProfit && "+"}{numberWithCommas(price_change)}&nbsp;%
-                                        </TableCell>
-                                        <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
-                                    </TableRow>
-                                )
-                            })}
-                        </TableBody>
-                    )}
-                </Table>
-                {!coinList.length && <LinearProgress />}
-            </TableContainer>
-            <div className="paginationCoins" id="bottom">
-                <Pagination count={pageCount} onChange={
-                    (_, p) => {
-                        setPage(p)
-                        window.scroll(0, 470)
-                    }
-                } />
-            </div>
+            {!coinList.length && <LinearProgress />}
+            {coinList.length > 0 && handlePagination()?.length > 0 && (
+                <div>
+                    <div className="paginationCoins">
+                        <Pagination count={pageCount} onChange={(_, p) => setPage(p)} />
+                    </div>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead sx={{ backgroundColor: "rgb(238, 188, 29)", color: "black" }}>
+                                <TableRow>
+                                    <TableCell key="thtc0" sx={{ ...customHeadCell, padding: "0 0 0 16px", textAlign: "left" }}>#</TableCell>
+                                    <TableCell key="thtc1" sx={customHeadCell}>Name</TableCell>
+                                    <TableCell key="thtc2" sx={customHeadCell} align="right">Price</TableCell>
+                                    <TableCell key="thtc3" sx={customHeadCell} align="right">24h&nbsp;%</TableCell>
+                                    <TableCell key="thtc4" sx={customHeadCell} align="right">Market Cap</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {handlePagination().map((el, i) => {
+                                    let price_change = 0;
+                                    if (el.price_change_percentage_24h !== null) price_change = el.price_change_percentage_24h.toFixed(2)
+                                    let isProfit = price_change > 0
+                                    return (
+                                        <TableRow sx={{
+                                            "&:hover": {
+                                                backgroundColor: "rgb(24, 24, 24)"
+                                            },
+                                            transition: "0.17s",
+                                            cursor: "pointer"
+                                        }} onClick={() => navigate(`/coins/${el.id}`)} key={el.id}>
+                                            <TableCell sx={{ padding: "0 0 0 16px", textAlign: "left" }}>{el.market_cap_rank}</TableCell>
+                                            <TableCell sx={{ display: "flex", alignItems: "center" }}>
+                                                <img style={{ height: "36px", marginRight: "1em" }} src={el.image} alt="" />
+                                                <div style={{ display: "flex", flexDirection: "column" }}>
+                                                    <span>{el.name}</span>
+                                                    <span style={{ color: "#eee", fontWeight: "500" }}>{el.symbol.toUpperCase()}</span>
+                                                </div>
+                                            </TableCell>
+                                            <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.current_price)}</TableCell>
+                                            <TableCell sx={{ color: (price_change >= 0 ? "rgb(14, 203, 129)" : "#d32f2f"), fontWeight: "500" }} align="right">
+                                                {isProfit && "+"}{numberWithCommas(price_change)}&nbsp;%
+                                            </TableCell>
+                                            <TableCell align="right">{currencySymbol}&nbsp;{numberWithCommas(el.market_cap)}</TableCell>
+                                        </TableRow>
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <div className="paginationCoins" id="bottom">
+                        <Pagination count={pageCount} onChange={
+                            (_, p) => {
+                                setPage(p)
+                                window.scroll(0, 470)
+                            }
+                        } />
+                    </div>
+                </div>
+            )}
         </Container >
     );
 }
