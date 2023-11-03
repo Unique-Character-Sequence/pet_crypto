@@ -52,7 +52,7 @@ const CoinsTable = () => {
             {coinList.length > 0 && handlePagination()?.length > 0 && (
                 <div>
                     <div className="paginationCoins">
-                        <Pagination count={pageCount} onChange={(_, p) => setPage(p)} />
+                        <Pagination page={page} count={pageCount} onChange={(_, p) => setPage(p)} />
                     </div>
                     <TableContainer component={Paper}>
                         <Table>
@@ -98,7 +98,7 @@ const CoinsTable = () => {
                         </Table>
                     </TableContainer>
                     <div className="paginationCoins" id="bottom">
-                        <Pagination count={pageCount} onChange={
+                        <Pagination page={page} count={pageCount} onChange={
                             (_, p) => {
                                 setPage(p)
                                 window.scroll(0, 470)
